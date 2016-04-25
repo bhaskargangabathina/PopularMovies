@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -164,18 +165,17 @@ public class FetchMovieTask extends AsyncTask<String, Void, Void> {
             // Possible parameters are avaiable at OWM's forecast API page, at
 
             final String MOVIE_BASE_URL =
-                    "http://api.themoviedb.org/3/discover/movie?";
-            final String SORT_PARAM = "sort_by";
+                "http://api.themoviedb.org/3/movie/"+params[0];
             final String APPID_PARAM = "api_key";
             final String PAGE_PARAM = "page";
 
             Uri builtUri = Uri.parse(MOVIE_BASE_URL).buildUpon()
-                    .appendQueryParameter(SORT_PARAM, params[0])
                     .appendQueryParameter(APPID_PARAM, BuildConfig.MOVIE_DB_API_KEY)
                     .appendQueryParameter(PAGE_PARAM, params[1])
                     .build();
 
             URL url = new URL(builtUri.toString());
+            Log.v("BHASKAR", url.toString());
 
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("GET");

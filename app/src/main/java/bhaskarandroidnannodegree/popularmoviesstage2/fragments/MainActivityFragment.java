@@ -9,6 +9,7 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -125,9 +126,10 @@ public class MainActivityFragment extends Fragment
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    if (firstTime == true) {
+    if (firstTime) {
       if (!Utils.hasNetworkConnection(getActivity())) {
-        Toast.makeText(getContext(), "Network Not Available!", Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), getResources().getString(R.string.no_internet), Toast
+            .LENGTH_LONG).show();
       }
       updateMovieList();
       ContentValues movieValues = new ContentValues();
@@ -290,6 +292,7 @@ public class MainActivityFragment extends Fragment
         info.setVisibility(View.GONE);
       }
     } catch (Exception e) {
+      Log.e("Bhaskar", e.getMessage());
     }
   }
 
